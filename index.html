@@ -3,22 +3,100 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Music App</title>
   <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 
 <body> 
   <main>
-    <h1>Music App</h1>  
-    
+    <section class="title">
+      <div class="container">
+        <h1>Music App</h1> 
+      </div>
+    </section>
+
+    <div class="level">
+      <div class="level-item">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input is-medium" type="text" placeholder="Find Events for...">
+          </div>
+          <div class="control">
+            <a class="button is-info is-medium">Search</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="level-item">
+        <table id="events" class="table">
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>Venue</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>City 1</td>
+              <td>Venue 1</td>
+              <td>Date 1</td>
+            </tr>
+            <tr>
+              <td>City 2</td>
+              <td>Venue 2</td>
+              <td>Date 2</td>
+            </tr>
+            <tr>
+              <td>City 3</td>
+              <td>Venue 3</td>
+              <td>Date 3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="level-item">
+          <table id="similar-artists" class="table">
+            <thead>
+              <tr>
+                <th>Similar Artists</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Artist 1</td>
+              </tr>
+              <tr>
+                <td>Artist 2</td>
+              </tr>
+              <tr>
+                <td>Artist 3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- External JavaScript -->
     <script src="assets/javascript/application.js"></script>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>2018</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
     
 </html>
