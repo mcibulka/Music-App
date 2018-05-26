@@ -1,3 +1,7 @@
+var city = $("#city").val();
+var artist = $("#artist").val();
+var artistNoSpace = artist.replace(" ", "%20")
+
 $(document).ready(function() {
     console.log("Ready!");
 
@@ -23,5 +27,31 @@ $(document).ready(function() {
 
 
 
+
+function bandsintown() {
+    var bandsURL = "rest.bandsintown.com/artists/"+artistNoSpace+"/events?app_id="
+
+    $.ajax ({
+        url: bandsURL,
+        method: "GET"
+    }).then(function(response) {
+        for (s=0; s<response.length; s++) {
+            var town = response.venue.city;
+            if (town ==city) {
+                console.log(response[s].venue.name);
+                console.log(response[s].datetime);
+            }
+        }
+    })
+}
+
+// ---------------------
+
+
+
+for (a= 0; a < similarArtists.length; a++) {
+    artistNoSpace = similarAartists[a].replace(" ", "%20");
+    bandsintown(); 
+}
 
 });
