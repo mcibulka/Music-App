@@ -43,19 +43,19 @@ function eventful() {
         for (e = 0; e < response.events.event.length; e++) {
             var event = $("<tr>");
 
-            // var eventCity = $("<th>");
-            // eventCity.text(response.events.event[e].title)
-            // var eventVenue = $("<th>");
-            // eventVenue.text(response.events.event[e].venue_address)
-            // var eventDate = $("<th>");
-            // eventDate.text(response.events.event[e].start_time)
+            var eventCity = $("<th>");
+            eventCity.text(response.events.event[e].title)
+            var eventVenue = $("<th>");
+            eventVenue.text(response.events.event[e].venue_address)
+            var eventDate = $("<th>");
+            eventDate.text(response.events.event[e].start_time)
             
-            // event.append(eventCity, eventVenue, eventDate)
-            // event.appendTo($("#events"));
+            event.append(eventCity, eventVenue, eventDate)
+            event.appendTo($("#events"));
 
-            console.log(response.events.event[e].title)
-            console.log(response.events.event[e].venue_address)
-            console.log(response.events.event[e].start_time)
+            // console.log(response.events.event[e].title)
+            // console.log(response.events.event[e].venue_address)
+            // console.log(response.events.event[e].start_time)
         }
     })
 }
