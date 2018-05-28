@@ -28,6 +28,7 @@ $(document).ready(function() {
 
     $("#search").on("click", function() {
         artist = $("#artist").val().trim();
+        var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
         eventful();
     })
 
