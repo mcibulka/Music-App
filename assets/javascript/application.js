@@ -24,11 +24,16 @@ $(document).ready(function() {
 
 
         });
-      };
+    };
 
+    $("#search").on("click", function() {
+        artist = $("#artist").val().trim();
+        eventful();
+    })
 
 function eventful() {
-    var eventfulURL = "http://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&location="+city+"&keywords="+artist
+    var eventfulURL = "http://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+artist
+    //&location="+city+" in case we want to add city
 
     $.ajax ({
         url: eventfulURL,
@@ -36,6 +41,18 @@ function eventful() {
     }).then(function(response) {
         console.log(response)
         for (e = 0; e < response.events.event.length; e++) {
+            var event = $("<tr>");
+
+            // var eventCity = $("<th>");
+            // eventCity.text(response.events.event[e].title)
+            // var eventVenue = $("<th>");
+            // eventVenue.text(response.events.event[e].venue_address)
+            // var eventDate = $("<th>");
+            // eventDate.text(response.events.event[e].start_time)
+            
+            // event.append(eventCity, eventVenue, eventDate)
+            // event.appendTo($("#events"));
+
             console.log(response.events.event[e].title)
             console.log(response.events.event[e].venue_address)
             console.log(response.events.event[e].start_time)
