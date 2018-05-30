@@ -28,10 +28,14 @@ $(document).ready(function() {
     };
 
     $("#search").on("click", function() {
+        searchClicked();
+    })
+
+    function searchClick() {
         artist = $("#artist").val().trim();
         var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
         eventful();
-    })
+    }
 
 function eventful() {
     $("#eventsRows").empty();
@@ -48,7 +52,6 @@ function eventful() {
             "Cache-Control": "no-cache"
           }
     }).then(function(response) {
-        console.log(response)
         for (e = 0; e < response.events.event.length; e++) {
             var event = $("<tr>");
 
@@ -64,12 +67,18 @@ function eventful() {
             event.append(eventCity, eventVenue, eventDate)
             event.appendTo($("#eventsRows"));
 
-            console.log(response.events.event[e].title)
-            console.log(response.events.event[e].venue_address)
-            console.log(response.events.event[e].start_time)
+            // console.log(response.events.event[e].title)
+            // console.log(response.events.event[e].venue_address)
+            // console.log(response.events.event[e].start_time)
         }
     })
 }
+
+$(".similar").on("click", $("#artist"), function() {
+    var similarClicked = $(this).attr("id");
+    $("#artist").val(similarClicked);
+    searchClicked()
+})
 
 
 
