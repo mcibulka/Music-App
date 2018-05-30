@@ -31,7 +31,7 @@ $(document).ready(function() {
         searchClicked();
     })
 
-    function searchClick() {
+    function searchClicked() {
         artist = $("#artist").val().trim();
         var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
         eventful();
