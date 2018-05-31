@@ -1,5 +1,6 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
+var eventArtistNoSpace
 //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
 var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
 
@@ -22,8 +23,6 @@ $(document).ready(function() {
 
                 similarArtists.push(response.similarartists.artist[e].name);
             }
-
-
         });
     };
 
@@ -33,14 +32,20 @@ $(document).ready(function() {
 
     function searchClicked() {
         artist = $("#artist").val().trim();
-        var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        city = $("#city").val().trim();
+        eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
         eventful();
     }
 
     function eventful() {
         $("#eventsRows").empty();
-        var eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+artist
-        //&location="+city+" in case we want to add city
+        var eventfulURL
+        if (city == "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
+        }
+        else if (city != "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+city
+        }
 
         $.ajax ({
             url: eventfulURL,
