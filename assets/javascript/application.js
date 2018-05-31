@@ -104,13 +104,7 @@ $(document).ready(function() {
                     //eventVenue, 
                     eventAddress, eventDate)
                 event.appendTo($("#eventsRows"));
-                eventCounter++
-
-                // console.log(response.events.event[e].title)
-                // console.log(response.events.event[e].venue_address)
-                // console.log(response.events.event[e].start_time)
             }
-    
         }
     })
 }
