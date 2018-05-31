@@ -1,5 +1,6 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
+var eventArtistNoSpace
 //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
 var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
 
@@ -44,8 +45,6 @@ $(document).ready(function() {
   
           })
       };
-
-
         
     $("#search").on("click", function() {
         searchClicked();
@@ -53,38 +52,49 @@ $(document).ready(function() {
 
     function searchClicked() {
         artist = $("#artist").val().trim();
-        var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        city = $("#city").val().trim();
+        eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
         eventful();
     }
 
-function eventful() {
-    $("#eventsRows").empty();
-    var eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+artist
-    //&location="+city+" in case we want to add city
+    function eventful() {
+        $("#eventsRows").empty();
+        var eventfulURL
+        if (city == "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
+        }
+        else if (city != "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+city
+        }
 
-    $.ajax ({
-        url: eventfulURL,
-        dataType: "jsonp",
-        method: "GET",
-        headers: {
-            "Allow-Origin": "true",
-            "Allow-Control": "true",
-            "Cache-Control": "no-cache"
-          }
+        $.ajax ({
+            url: eventfulURL,
+            dataType: "jsonp",
+            method: "GET",
+            headers: {
+                "Allow-Origin": "true",
+                "Allow-Control": "true",
+                "Cache-Control": "no-cache"
+            }
     }).then(function(response) {
         for (e = 0; e < response.events.event.length; e++) {
             var event = $("<tr>");
 
             var eventCity = $("<td>");
-            eventCity.text(response.events.event[e].title)
+            eventCity.text(response.events.event[e].city_name)
 
-            var eventVenue = $("<td>");
-            eventVenue.text(response.events.event[e].venue_address)
+            //var eventVenue = $("<td>");
+            //eventVenue.text(response.events.event[e].venue_name)
+
+            var eventAddress = $("<td>");
+            eventAddress.text(response.events.event[e].venue_name)
 
             var eventDate = $("<td>");
             eventDate.text(response.events.event[e].start_time)
             
-            event.append(eventCity, eventVenue, eventDate)
+            event.append(eventCity, 
+                //eventVenue, 
+                eventAddress, eventDate)
             event.appendTo($("#eventsRows"));
 
             // console.log(response.events.event[e].title)
