@@ -34,6 +34,7 @@ $(document).ready(function() {
         artist = $("#artist").val().trim();
         city = $("#city").val().trim();
         eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        eventCityNoSpace = city.replace(" ", "+")
         eventful();
     }
 
@@ -44,7 +45,7 @@ $(document).ready(function() {
             eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
         }
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+city
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace
         }
 
         $.ajax ({
@@ -57,6 +58,7 @@ $(document).ready(function() {
                 "Cache-Control": "no-cache"
             }
     }).then(function(response) {
+        var eventCounter = 0
         for (e = 0; e < response.events.event.length; e++) {
             var event = $("<tr>");
 
@@ -76,10 +78,15 @@ $(document).ready(function() {
                 //eventVenue, 
                 eventAddress, eventDate)
             event.appendTo($("#eventsRows"));
+            eventCounter++
 
             // console.log(response.events.event[e].title)
             // console.log(response.events.event[e].venue_address)
             // console.log(response.events.event[e].start_time)
+        }
+        if (eventCounter < 1) {
+            var event = $("<tr>)");
+            event.text("No concerts found")
         }
     })
 }
