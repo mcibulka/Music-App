@@ -54,6 +54,7 @@ $(document).ready(function() {
         artist = $("#artist").val().trim();
         city = $("#city").val().trim();
         eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        eventCityNoSpace = city.replace(" ", "+")
         eventful();
     }
 
@@ -64,7 +65,7 @@ $(document).ready(function() {
             eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
         }
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+city
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace
         }
 
         $.ajax ({
@@ -77,29 +78,39 @@ $(document).ready(function() {
                 "Cache-Control": "no-cache"
             }
     }).then(function(response) {
-        for (e = 0; e < response.events.event.length; e++) {
-            var event = $("<tr>");
-
-            var eventCity = $("<td>");
-            eventCity.text(response.events.event[e].city_name)
-
-            //var eventVenue = $("<td>");
-            //eventVenue.text(response.events.event[e].venue_name)
-
-            var eventAddress = $("<td>");
-            eventAddress.text(response.events.event[e].venue_name)
-
-            var eventDate = $("<td>");
-            eventDate.text(response.events.event[e].start_time)
-            
-            event.append(eventCity, 
-                //eventVenue, 
-                eventAddress, eventDate)
+        if  (response.total_items < 1) {
+            var event = $("<tr>)");
+            event.text("No concerts found")
             event.appendTo($("#eventsRows"));
 
-            // console.log(response.events.event[e].title)
-            // console.log(response.events.event[e].venue_address)
-            // console.log(response.events.event[e].start_time)
+        }
+        else {
+            for (e = 0; e < response.events.event.length; e++) {
+                var event = $("<tr>");
+
+                var eventCity = $("<td>");
+                eventCity.text(response.events.event[e].city_name)
+
+                //var eventVenue = $("<td>");
+                //eventVenue.text(response.events.event[e].venue_name)
+
+                var eventAddress = $("<td>");
+                eventAddress.text(response.events.event[e].venue_name)
+
+                var eventDate = $("<td>");
+                eventDate.text(response.events.event[e].start_time)
+                
+                event.append(eventCity, 
+                    //eventVenue, 
+                    eventAddress, eventDate)
+                event.appendTo($("#eventsRows"));
+                eventCounter++
+
+                // console.log(response.events.event[e].title)
+                // console.log(response.events.event[e].venue_address)
+                // console.log(response.events.event[e].start_time)
+            }
+    
         }
     })
 }
