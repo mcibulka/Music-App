@@ -16,7 +16,7 @@ $(document).ready(function() {
 //        $("#artistsContainer").remove();
 //        $("#imageContainer").remove();
         console.log("test");
-          var queryURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
+          var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
           $.ajax({
             url: queryURL,
             method: "GET"
@@ -31,15 +31,25 @@ $(document).ready(function() {
                       imageSrc.push(results[i].image[2]["#text"]);
 
                     var similarResult = $("<tr>");
+                    similarResult.attr("class", "similar");
+                    similarResult.attr("artist", results[i].name)
                 //  var similarResult2 = $("<code><br>");
                 //  var similarResult3 = $("<code><br>");
       
                       var similarArtistCell = $("<code>");
+
+                      similarArtistCell.attr("class", "similar");
+                        similarArtistCell.attr("artist", results[i].name)
+
                       var similarArtistImg = $("<img>");       
                       similarArtistImg.attr("src", results[i].image[2]["#text"])
                       console.log(results[i].image[2]["#text"]);
 
                       var similarArtistResult = $("<td>");
+
+                      similarArtistResult.attr("class", "similar");
+                        similarArtistResult.attr("artist", results[i].name)
+
                       similarArtistResult.text(results[i].name)
           
                       similarArtistCell.append(similarArtistImg)
@@ -78,7 +88,7 @@ $(document).ready(function() {
         }
         //
         else if ((city != "") && (eventArtistNoSpace == "")) {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&sort_order=popularity"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&date=today&sort_order=popularity"
         }
         //
         else if (city != "") {
@@ -126,8 +136,10 @@ $(document).ready(function() {
     })
 }
 
-$(".similar").on("click", $("#artist"), function() {
-    var similarClicked = $(this).attr("id");
+$("#similarArtistRows").on("click", ".similar", function() {
+    console.log("clicked")
+    var similarClicked = $(this).attr("artist");
+    console.log(similarClicked)
     $("#artist").val(similarClicked);
     searchClicked()
 })
