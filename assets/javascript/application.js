@@ -66,7 +66,7 @@ $(document).ready(function() {
         }
         //
         else if ((city != "") && (eventArtistNoSpace == "")) {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&sort_order=date"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&sort_order=popularity"
         }
         //
         else if (city != "") {
