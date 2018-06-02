@@ -1,5 +1,6 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
+var eventArtistNoSpace
 //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
 var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
 
@@ -7,59 +8,126 @@ $(document).ready(function() {
     console.log("Ready!");
 
     var similarArtists = [];
+    var imageSrc = [];
 
     // The search Lastfm function takes an artist, searches the lastfm api for it, and then passes the data to createRow
-    var searchLastfm = function(artist) {
-        var queryURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
-        $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).then(function(response) {
-         // createRow(response);
-            for (e=0; e<response.similarartists.artist.length; e++){
-                console.log(response.similarartists.artist[e].name);
+    function searchLastfm() {
+      $("#similarArtistRows").empty();
+//        $("#artistsContainer").remove();
+//        $("#imageContainer").remove();
+        console.log("test");
+          var queryURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
+          $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+  
+              var results = response.similarartists.artist;
+  
+  
+                  for (var i = 0; i < 5; i++)   {
+  
+                      similarArtists.push(results[i].name);
+                      imageSrc.push(results[i].image[2]["#text"]);
 
-                similarArtists.push(response.similarartists.artist[e].name);
-            }
+                    var similarResult = $("<tr>");
+                //  var similarResult2 = $("<code><br>");
+                //  var similarResult3 = $("<code><br>");
+      
+                      var similarArtistCell = $("<code>");
+                      var similarArtistImg = $("<img>");       
+                      similarArtistImg.attr("src", results[i].image[2]["#text"])
+                      console.log(results[i].image[2]["#text"]);
 
-
-        });
-    };
-
+                      var similarArtistResult = $("<td>");
+                      similarArtistResult.text(results[i].name)
+          
+                      similarArtistCell.append(similarArtistImg)
+                      similarResult.append(similarArtistCell, similarArtistResult)
+                //      similarResult2.append(similarArtistCell)
+                //      similarResult3.append(similarArtistResult)
+                      similarResult.appendTo($("#similarArtistRows"));
+                //      similarResult2.appendTo($(".artistImage"));
+                //      similarResult3.appendTo($(".artistName"));
+                  }
+  
+                   console.log(similarArtists);
+                   console.log(imageSrc);
+  
+          })
+      };
+        
     $("#search").on("click", function() {
-        artist = $("#artist").val().trim();
-        var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
-        eventful();
+        searchClicked();
+        searchLastfm();
     })
 
-function eventful() {
-    var eventfulURL = "http://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+artist
-    //&location="+city+" in case we want to add city
+    function searchClicked() {
+        artist = $("#artist").val().trim();
+        city = $("#city").val().trim();
+        eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        eventCityNoSpace = city.replace(" ", "+")
+        eventful();
+    }
 
-    $.ajax ({
-        url: eventfulURL,
-        method: "GET"
+    function eventful() {
+        $("#eventsRows").empty();
+        var eventfulURL
+        if (city == "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
+        }
+        else if (city != "") {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace
+        }
+
+        $.ajax ({
+            url: eventfulURL,
+            dataType: "jsonp",
+            method: "GET",
+            headers: {
+                "Allow-Origin": "true",
+                "Allow-Control": "true",
+                "Cache-Control": "no-cache"
+            }
     }).then(function(response) {
-        console.log(response)
-        for (e = 0; e < response.events.event.length; e++) {
-            var event = $("<tr>");
+        if  (response.total_items < 1) {
+            var event = $("<tr>)");
+            event.text("No concerts found")
+            event.appendTo($("#eventsRows"));
 
-            var eventCity = $("<th>");
-            eventCity.text(response.events.event[e].title)
-            var eventVenue = $("<th>");
-            eventVenue.text(response.events.event[e].venue_address)
-            var eventDate = $("<th>");
-            eventDate.text(response.events.event[e].start_time)
-            
-            event.append(eventCity, eventVenue, eventDate)
-            event.appendTo($("#events"));
+        }
+        else {
+            for (e = 0; e < response.events.event.length; e++) {
+                var event = $("<tr>");
 
-            // console.log(response.events.event[e].title)
-            // console.log(response.events.event[e].venue_address)
-            // console.log(response.events.event[e].start_time)
+                var eventCity = $("<td>");
+                eventCity.text(response.events.event[e].city_name)
+
+                //var eventVenue = $("<td>");
+                //eventVenue.text(response.events.event[e].venue_name)
+
+                var eventAddress = $("<td>");
+                eventAddress.text(response.events.event[e].venue_name)
+
+                var eventDate = $("<td>");
+                eventDate.text(response.events.event[e].start_time)
+                
+                event.append(eventCity, 
+                    //eventVenue, 
+                    eventAddress, eventDate)
+                event.appendTo($("#eventsRows"));
+            }
         }
     })
 }
+
+$(".similar").on("click", $("#artist"), function() {
+    var similarClicked = $(this).attr("id");
+    $("#artist").val(similarClicked);
+    searchClicked()
+})
+
+
 
 // function bandsintown() {
 //     var bandsURL = "rest.bandsintown.com/artists/"+bandsArtistNoSpace+"/events?app_id="
@@ -82,9 +150,25 @@ function eventful() {
 
 
 
-for (a= 0; a < similarArtists.length; a++) {
-    bandsArtistNoSpace = similarAartists[a].replace(" ", "%20");
-    eventful(); 
-}
+    // for (a= 0; a < similarArtists.length; a++) {
+    //     //bandsArtistNoSpace = similarAartists[a].replace(" ", "%20");
+    //     artist = similarArtists[a].trim();
+    //     //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
+    //     var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
+        
+    //     var event = $("<tr>");
+
+    //     var similar = $("<td>");
+    //     similar.text(`${similarArtists[a]}`)
+    //     similar.attr("class", "similar")
+    //     similar.attr("id", similarArtists[a])
+            
+    //     event.append(similar)
+    //     event.appendTo($("#simlar-artists"));
+    // }
+
+// $(".similar").on("click", function() {
+//     ("#artist").val($(this).attr("id"));
+// })
 
 });
