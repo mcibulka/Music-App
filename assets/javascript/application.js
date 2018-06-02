@@ -16,7 +16,7 @@ $(document).ready(function() {
 //        $("#artistsContainer").remove();
 //        $("#imageContainer").remove();
         console.log("test");
-          var queryURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
+          var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
           $.ajax({
             url: queryURL,
             method: "GET"
