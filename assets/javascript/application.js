@@ -62,10 +62,15 @@ $(document).ready(function() {
         $("#eventsRows").empty();
         var eventfulURL
         if (city == "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&sort_order=date"
         }
+        //
+        else if ((city != "") && (eventArtistNoSpace == "")) {
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&sort_order=date"
+        }
+        //
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=80&sort_order=date"
         }
 
         $.ajax ({
@@ -89,7 +94,7 @@ $(document).ready(function() {
                 var event = $("<tr>");
 
                 var eventCity = $("<td>");
-                eventCity.text(response.events.event[e].city_name)
+                eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
 
                 //var eventVenue = $("<td>");
                 //eventVenue.text(response.events.event[e].venue_name)
