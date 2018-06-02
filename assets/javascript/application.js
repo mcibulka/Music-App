@@ -12,9 +12,9 @@ $(document).ready(function() {
 
     // The search Lastfm function takes an artist, searches the lastfm api for it, and then passes the data to createRow
     function searchLastfm() {
-//      $("#similarArtistRows").empty();
-        $("#artistsContainer").remove();
-        $("#imageContainer").remove();
+      $("#similarArtistRows").empty();
+//        $("#artistsContainer").remove();
+//        $("#imageContainer").remove();
         console.log("test");
           var queryURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
           $.ajax({
@@ -30,9 +30,9 @@ $(document).ready(function() {
                       similarArtists.push(results[i].name);
                       imageSrc.push(results[i].image[2]["#text"]);
 
-                //    var similarResult = $("<tr>");
-                      var similarResult2 = $("<code><br>");
-                      var similarResult3 = $("<code><br>");
+                    var similarResult = $("<tr>");
+                //  var similarResult2 = $("<code><br>");
+                //  var similarResult3 = $("<code><br>");
       
                       var similarArtistCell = $("<code>");
                       var similarArtistImg = $("<img>");       
@@ -43,12 +43,12 @@ $(document).ready(function() {
                       similarArtistResult.text(results[i].name)
           
                       similarArtistCell.append(similarArtistImg)
-                //      similarResult.append(similarArtistCell, similarArtistResult)
-                      similarResult2.append(similarArtistCell)
-                      similarResult3.append(similarArtistResult)
-                //      similarResult.appendTo($("#similarArtistRows"));
-                      similarResult2.appendTo($(".artistImage"));
-                      similarResult3.appendTo($(".artistName"));
+                      similarResult.append(similarArtistCell, similarArtistResult)
+                //      similarResult2.append(similarArtistCell)
+                //      similarResult3.append(similarArtistResult)
+                      similarResult.appendTo($("#similarArtistRows"));
+                //      similarResult2.appendTo($(".artistImage"));
+                //      similarResult3.appendTo($(".artistName"));
                   }
   
                    console.log(similarArtists);
