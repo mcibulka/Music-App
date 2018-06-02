@@ -1,5 +1,6 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
+var country
 var eventArtistNoSpace
 //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
 var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
@@ -88,11 +89,11 @@ $(document).ready(function() {
         }
         //
         else if ((city != "") && (eventArtistNoSpace == "")) {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=80&date=today&sort_order=popularity"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location="+eventCityNoSpace+"&within=60&date=today&sort_order=popularity"
         }
         //
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=80&sort_order=date"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=60&sort_order=relevence"
         }
 
         $.ajax ({
@@ -115,8 +116,14 @@ $(document).ready(function() {
             for (e = 0; e < response.events.event.length; e++) {
                 var event = $("<tr>");
 
+
+                var eventPlaying = $("<td>");
+                eventPlaying.text()
+                eventPlaying.text(response.events.event[e].title)
+
                 var eventCity = $("<td>");
                 eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
+                country = response.events.event[e].country_name
 
                 //var eventVenue = $("<td>");
                 //eventVenue.text(response.events.event[e].venue_name)
@@ -125,9 +132,15 @@ $(document).ready(function() {
                 eventAddress.text(response.events.event[e].venue_name)
 
                 var eventDate = $("<td>");
+
+                //Below code for Date without Time
+                //var dateWithoutTime = response.events.event[e].start_time
+                //dateWithoutTime = dateWithoutTime.substring(0, dateWithoutTime.indexOf(" "));
+                //eventDate.text(dateWithoutTime)
+
                 eventDate.text(response.events.event[e].start_time)
                 
-                event.append(eventCity, 
+                event.append(eventPlaying, eventCity, 
                     //eventVenue, 
                     eventAddress, eventDate)
                 event.appendTo($("#eventsRows"));
@@ -137,9 +150,7 @@ $(document).ready(function() {
 }
 
 $("#similarArtistRows").on("click", ".similar", function() {
-    console.log("clicked")
     var similarClicked = $(this).attr("artist");
-    console.log(similarClicked)
     $("#artist").val(similarClicked);
     searchClicked()
 })
