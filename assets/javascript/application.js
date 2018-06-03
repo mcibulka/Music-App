@@ -1,7 +1,7 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
 var country
-var eventArtistNoSpace
+var eventCityNoSpace
 //var bandsArtistNoSpace = artist.replace(" ", "%20") //changes spaces to bandsInTown's format
 var eventArtistNoSpace = artist.replace(" ", "+") //changes spaces to eventful's format
 
@@ -93,7 +93,7 @@ $(document).ready(function() {
         }
         //
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=60&sort_order=relevence"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=60&sort_order=relevance"
         }
 
         $.ajax ({
@@ -107,6 +107,7 @@ $(document).ready(function() {
             }
     }).then(function(response) {
         if  (response.total_items < 1) {
+            console.log("None")
             var event = $("<tr>)");
             event.text("No concerts found")
             event.appendTo($("#eventsRows"));
@@ -134,11 +135,24 @@ $(document).ready(function() {
                 var eventDate = $("<td>");
 
                 //Below code for Date without Time
-                //var dateWithoutTime = response.events.event[e].start_time
-                //dateWithoutTime = dateWithoutTime.substring(0, dateWithoutTime.indexOf(" "));
-                //eventDate.text(dateWithoutTime)
 
+                var dateWithoutTime = response.events.event[e].start_time
+                dateWithoutTime = dateWithoutTime.substring(0, dateWithoutTime.indexOf(" "));
+                
+                //eventDate.text(dateWithoutTime)
+                
+
+                // var prettyEventDate = moment(dateWithoutTime).format( "MMM Do"); //only include to pretty with above 
+                // eventDate.text(prettyEventDate)
+                // console.log(prettyEventDate)
+
+                var date = new Date(dateWithoutTime)
+                
+                eventDate.text(prettyEventTime)
+                
+                
                 eventDate.text(response.events.event[e].start_time)
+                
                 
                 event.append(eventPlaying, eventCity, 
                     //eventVenue, 
