@@ -9,6 +9,13 @@ table {
 }
 
 
+#app-name {
+    font-family: 'Shrikhand', cursive;
+    font-size: 68px;
+    letter-spacing: 3px;
+}
+
+
 .main {
     padding-top: 50px;
     padding-bottom: 50px;
