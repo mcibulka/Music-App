@@ -31,43 +31,6 @@ $(document).ready(function() {
                         imageSrc.push(results[i].image[2]["#text"]);
 
                     var similarResult = $("<tr>");
-<<<<<<< HEAD
-                    similarResult.attr("class", "similar");
-                    similarResult.attr("artist", results[i].name)
-                //  var similarResult2 = $("<code><br>");
-                //  var similarResult3 = $("<code><br>");
-      
-                      var similarArtistCell = $("<code>");
-
-                      similarArtistCell.attr("class", "similar");
-                        similarArtistCell.attr("artist", results[i].name)
-
-                      var similarArtistImg = $("<img>");       
-                      similarArtistImg.attr("src", results[i].image[2]["#text"])
-                      console.log(results[i].image[2]["#text"]);
-
-                      var similarArtistResult = $("<td>");
-
-                      similarArtistResult.attr("class", "similar");
-                        similarArtistResult.attr("artist", results[i].name)
-
-                      similarArtistResult.text(results[i].name)
-          
-                      similarArtistCell.append(similarArtistImg)
-                      similarResult.append(similarArtistCell, similarArtistResult)
-                //      similarResult2.append(similarArtistCell)
-                //      similarResult3.append(similarArtistResult)
-                      similarResult.appendTo($("#similarArtistRows"));
-                //      similarResult2.appendTo($(".artistImage"));
-                //      similarResult3.appendTo($(".artistName"));
-                  }
-  
-                   console.log(similarArtists);
-                   console.log(imageSrc);
-  
-          })
-      };
-=======
 
                     var similarArtistCell = $("<code>");
                     var similarArtistImg = $("<img>");       
@@ -99,7 +62,6 @@ $(document).ready(function() {
         
      
                         for (var i = 0; i < 5; i++)   {
->>>>>>> samy_dev
         
                             similarArtists.push(results[i].name);
                             imageSrc.push(results[i].image[2]["#text"]);
