@@ -73,11 +73,7 @@ $(document).ready(function() {
         };
     };
 
-    function addLastfmResults() {
-
-
-        
-    }    
+  
     $("#search").on("click", function() {
         searchClicked();
         searchLastfm();
