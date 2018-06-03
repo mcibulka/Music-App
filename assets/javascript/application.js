@@ -13,25 +13,10 @@ $(document).ready(function() {
 
     // The search Lastfm function takes an artist, searches the lastfm api for it, and then passes the data to createRow
     function searchLastfm() {
-      $("#similarArtistRows").empty();
-//        $("#artistsContainer").remove();
-//        $("#imageContainer").remove();
-        console.log("test");
-          var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
-          $.ajax({
-            url: queryURL,
-            method: "GET"
-          }).then(function(response) {
-  
-              var results = response.similarartists.artist;
-  
-  
-                  for (var i = 0; i < 5; i++)   {
-  
-                      similarArtists.push(results[i].name);
-                      imageSrc.push(results[i].image[2]["#text"]);
+
 
                     var similarResult = $("<tr>");
+<<<<<<< HEAD
                     similarResult.attr("class", "similar");
                     similarResult.attr("artist", results[i].name)
                 //  var similarResult2 = $("<code><br>");
@@ -67,6 +52,7 @@ $(document).ready(function() {
   
           })
       };
+=======
         
     $("#search").on("click", function() {
         searchClicked();
