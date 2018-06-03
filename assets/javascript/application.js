@@ -12,6 +12,7 @@ $(document).ready(function() {
     function searchLastfm() {
         if (artist == "") {
             $("#similarArtistRows").empty();
+            $("#h2-similar").text("Top Artists");
 
             var queryURL = "https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
             $.ajax({
@@ -81,6 +82,10 @@ $(document).ready(function() {
 
   
     $("#search").on("click", function() {
+        $("#events").removeClass("is-invisible");
+        $("#h2-similar").removeClass("is-invisible");
+        $("#similar-artists").removeClass("is-invisible");
+
         searchClicked();
         searchLastfm();
     });
