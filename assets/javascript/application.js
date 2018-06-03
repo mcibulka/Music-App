@@ -14,6 +14,7 @@ $(document).ready(function() {
     // The search Lastfm function takes an artist, searches the lastfm api for it, and then passes the data to createRow
     function searchLastfm() {
 
+    
 
                     var similarResult = $("<tr>");
 <<<<<<< HEAD
