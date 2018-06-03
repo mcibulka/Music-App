@@ -7,15 +7,18 @@
   <title>Concert Finder</title>
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 
 <body> 
   <main>
-    <section class="title">
-      <div class="container">
-        <h1>Concert Finder</h1> 
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 id="app-name" class="title is-1 has-text-white">Concert Finder</h1>
+        </div>
       </div>
     </section>
 
@@ -40,57 +43,37 @@
         
       <div class="columns is-centered">
         <div class="column is-6">
-          <table id="events" class="table is-fullwidth">
+          <table id="events" class="table">
             <thead>
               <tr>
-                <th id="chameleon">City</th>
+                <th>Event</th>
                 <th>Venue</th>
+                <th>Location</th>
                 <th>Date</th>
               </tr>
             </thead>
             <tbody id="eventsRows">
               <tr>
-                <td>City 1</td>
-                <td>Venue 1</td>
-                <td>Date 1</td>
-              </tr>
-              <tr>
-                <td>City 2</td>
-                <td>Venue 2</td>
-                <td>Date 2</td>
-              </tr>
-              <tr>
-                <td>City 3</td>
-                <td>Venue 3</td>
-                <td>Date 3</td>
+                <td class="event-td">Event 1</td>
+                <td class="venue-td">Venue 1</td>
+                <td class="location-id">Location 1</td>
+                <td class="date-td">Date 1</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="column is-2">
-          <table id="similar-artists" class="table is-fullwidth">
-            <thead>
-              <tr>
-                <th>Img</th>
-                <th>Similar Artists</th>
-              </tr>
-            </thead>
+        <div class="column is-3">
+          <h2>You may also like:</h2>
+          <table id="similar-artists" class="table">
             <tbody id="similarArtistRows" class="similar">
               <tr>
                 <td>Img 1</td>
                 <td class="has-text-centered">Artist 1</td>
               </tr>
-              <tr>
-                <td>Img 2</td>
-                <td class="has-text-centered">Artist 2</td>
-              </tr>
-              <tr>
-                <td>Img 3</td>
-                <td class="has-text-centered">Artist 3</td>
-              </tr>
             </tbody>
           </table>
-        </div> 
+        </div>
+      </div> 
     </section>
 
     <!-- jQuery -->
@@ -100,10 +83,10 @@
     <script src="assets/javascript/application.js"></script> 
   </main>
 
-  <footer class="footer">
+  <footer class="footer has-background-primary is-paddingless">
     <div class="container">
       <div class="content has-text-centered">
-        <p>2018</p>
+        <p class="has-text-weight-light has-text-white">Copyright &copy; 2018 Concert Finder</p>
       </div>
     </div>
   </footer>

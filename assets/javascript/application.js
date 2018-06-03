@@ -31,24 +31,40 @@ $(document).ready(function() {
                         imageSrc.push(results[i].image[2]["#text"]);
 
                     var similarResult = $("<tr>");
+                    similarResult.attr("class", "similar");
+                    similarResult.attr("artist", results[i].name)
+                //  var similarResult2 = $("<code><br>");
+                //  var similarResult3 = $("<code><br>");
+      
+                      var similarArtistCell = $("<td>");
+                      similarArtistCell.addClass("img-td similar");
+                        similarArtistCell.attr("artist", results[i].name)
 
-                    var similarArtistCell = $("<code>");
-                    var similarArtistImg = $("<img>");       
-                    similarArtistImg.attr("src", results[i].image[2]["#text"])
-                    console.log(results[i].image[2]["#text"]);
+                      var similarArtistImg = $("<img>");       
+                      similarArtistImg.attr("src", results[i].image[2]["#text"])
+                      console.log(results[i].image[2]["#text"]);
 
-                    var similarArtistResult = $("<td>");
-                    similarArtistResult.text(results[i].name)
-        
-                    similarArtistCell.append(similarArtistImg)
-                    similarResult.append(similarArtistCell, similarArtistResult)
-                    similarResult.appendTo($("#similarArtistRows"));
-                    }
-                })
+                      var similarArtistResult = $("<td>");
+                      similarArtistResult.addClass("artist-td similar");
 
-                console.log(similarArtists);
-                console.log(imageSrc);
-            }
+                        similarArtistResult.attr("artist", results[i].name)
+
+                      similarArtistResult.text(results[i].name)
+          
+                      similarArtistCell.append(similarArtistImg)
+                      similarResult.append(similarArtistCell, similarArtistResult)
+                //      similarResult2.append(similarArtistCell)
+                //      similarResult3.append(similarArtistResult)
+                      similarResult.appendTo($("#similarArtistRows"));
+                //      similarResult2.appendTo($(".artistImage"));
+                //      similarResult3.appendTo($(".artistName"));
+                  }
+  
+                   console.log(similarArtists);
+                   console.log(imageSrc);
+  
+          })
+      }
         else {
             $("#similarArtistRows").empty();
                 console.log("test");
@@ -69,7 +85,9 @@ $(document).ready(function() {
                             var similarResult = $("<tr>");
 
             
-                            var similarArtistCell = $("<code>");
+                            var similarArtistCell = $("<td>");
+                            similarArtistCell.addClass("img-td");
+
                             var similarArtistImg = $("<img>");       
                             similarArtistImg.attr("src", results[i].image[2]["#text"])
                             console.log(results[i].image[2]["#text"]);
@@ -137,23 +155,25 @@ $(document).ready(function() {
             for (e = 0; e < response.events.event.length; e++) {
                 var event = $("<tr>");
 
-
                 var eventPlaying = $("<td>");
+                eventPlaying.addClass("event-td");
                 eventPlaying.text()
                 eventPlaying.text(response.events.event[e].title)
-
-                var eventCity = $("<td>");
-                eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
-                country = response.events.event[e].country_name
 
                 //var eventVenue = $("<td>");
                 //eventVenue.text(response.events.event[e].venue_name)
 
                 var eventAddress = $("<td>");
+                eventAddress.addClass("venue-td");
                 eventAddress.text(response.events.event[e].venue_name)
 
-                var eventDate = $("<td>");
+                var eventCity = $("<td>");
+                eventCity.addClass("location-td");
+                eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
+                country = response.events.event[e].country_name
 
+                var eventDate = $("<td>");
+                eventDate.addClass("date-td");
                 //Below code for Date without Time
                 //var dateWithoutTime = response.events.event[e].start_time
                 //dateWithoutTime = dateWithoutTime.substring(0, dateWithoutTime.indexOf(" "));
@@ -161,9 +181,7 @@ $(document).ready(function() {
 
                 eventDate.text(response.events.event[e].start_time)
                 
-                event.append(eventPlaying, eventCity, 
-                    //eventVenue, 
-                    eventAddress, eventDate)
+                event.append(eventPlaying, eventAddress, eventCity, eventDate)
                 event.appendTo($("#eventsRows"));
             }
         }
