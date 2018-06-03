@@ -65,8 +65,6 @@ $(document).ready(function() {
   
           })
       }
-
-
         else {
             $("#similarArtistRows").empty();
                 console.log("test");
@@ -87,7 +85,9 @@ $(document).ready(function() {
                             var similarResult = $("<tr>");
 
             
-                            var similarArtistCell = $("<code>");
+                            var similarArtistCell = $("<td>");
+                            similarArtistCell.addClass("img-td");
+
                             var similarArtistImg = $("<img>");       
                             similarArtistImg.attr("src", results[i].image[2]["#text"])
                             console.log(results[i].image[2]["#text"]);
