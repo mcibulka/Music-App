@@ -4,6 +4,11 @@ h1 {
     text-align: center;
 }
 
+table {
+    table-layout: fixed;
+}
+
+
 .main {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -18,8 +23,39 @@ h1 {
 }
 
 
-/* Sticky footer
--------------------------------------------------- */
+/* Events Table */
+.event-td {
+    width: 300px;
+    /* width: 33%; */
+}
+
+.venue-td {
+    width: 250px;
+    /* width: 17%; */
+}
+
+.location-td {
+    width: 175px;
+    /* width: 25%; */
+}
+
+.date-td {
+    width: 150px;
+    /* width: 25%; */
+}
+
+
+/* Similar Artists Table */
+.img-td {
+    width: 175px;
+}
+
+.artist-td {
+    width: 175px;    
+}
+
+
+/* Sticky footer */
 html {
     position: relative;
     min-height: 100%;
@@ -36,10 +72,3 @@ body {
     height: 80px; /* Set the fixed height of the footer here */
     line-height: 80px; /* Vertically center the text there */
 }
-
-
-
-
-/* code {
-    min-height: inherit;
-} */

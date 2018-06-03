@@ -37,9 +37,8 @@ $(document).ready(function() {
                 //  var similarResult2 = $("<code><br>");
                 //  var similarResult3 = $("<code><br>");
       
-                      var similarArtistCell = $("<code>");
-
-                      similarArtistCell.attr("class", "similar");
+                      var similarArtistCell = $("<td>");
+                      similarArtistCell.addClass("img-td similar");
                         similarArtistCell.attr("artist", results[i].name)
 
                       var similarArtistImg = $("<img>");       
@@ -47,8 +46,8 @@ $(document).ready(function() {
                       console.log(results[i].image[2]["#text"]);
 
                       var similarArtistResult = $("<td>");
+                      similarArtistResult.addClass("artist-td similar");
 
-                      similarArtistResult.attr("class", "similar");
                         similarArtistResult.attr("artist", results[i].name)
 
                       similarArtistResult.text(results[i].name)
@@ -116,23 +115,25 @@ $(document).ready(function() {
             for (e = 0; e < response.events.event.length; e++) {
                 var event = $("<tr>");
 
-
                 var eventPlaying = $("<td>");
+                eventPlaying.addClass("event-td");
                 eventPlaying.text()
                 eventPlaying.text(response.events.event[e].title)
-
-                var eventCity = $("<td>");
-                eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
-                country = response.events.event[e].country_name
 
                 //var eventVenue = $("<td>");
                 //eventVenue.text(response.events.event[e].venue_name)
 
                 var eventAddress = $("<td>");
+                eventAddress.addClass("venue-td");
                 eventAddress.text(response.events.event[e].venue_name)
 
-                var eventDate = $("<td>");
+                var eventCity = $("<td>");
+                eventCity.addClass("location-td");
+                eventCity.text(response.events.event[e].city_name+", "+response.events.event[e].region_abbr+", "+response.events.event[e].country_abbr)
+                country = response.events.event[e].country_name
 
+                var eventDate = $("<td>");
+                eventDate.addClass("date-td");
                 //Below code for Date without Time
                 //var dateWithoutTime = response.events.event[e].start_time
                 //dateWithoutTime = dateWithoutTime.substring(0, dateWithoutTime.indexOf(" "));
@@ -140,9 +141,7 @@ $(document).ready(function() {
 
                 eventDate.text(response.events.event[e].start_time)
                 
-                event.append(eventPlaying, eventCity, 
-                    //eventVenue, 
-                    eventAddress, eventDate)
+                event.append(eventPlaying, eventAddress, eventCity, eventDate)
                 event.appendTo($("#eventsRows"));
             }
         }
