@@ -1,7 +1,7 @@
 var city = $("#city").val();
 var artist = $("#artist").val().trim();
 var country = "";
-// var eventArtistNoSpace
+var eventCityNoSpace
 var eventArtistNoSpace = artist.replace(" ", "+")   //changes spaces to eventful's format
 
 $(document).ready(function() {
@@ -17,7 +17,7 @@ $(document).ready(function() {
             var queryURL = "https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
             $.ajax({
                 url: queryURL,
-                method: "GET"
+                method: "GET"   
             }).then(function(response) {
                 var results = response.topartists.artist;
 
@@ -49,6 +49,7 @@ $(document).ready(function() {
         }
         else {
             $("#similarArtistRows").empty();
+            $("#h2-similar").text("You May Also Like:");
 
             var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
             $.ajax({
@@ -62,6 +63,8 @@ $(document).ready(function() {
                     imageSrc.push(results[i].image[2]["#text"]);
 
                     var similarResult = $("<tr>");
+                    similarResult.attr("class", "similar");
+                    similarResult.attr("artist", results[i].name);
 
                     var similarArtistCell = $("<td>");
                     similarArtistCell.addClass("img-td");
@@ -91,7 +94,7 @@ $(document).ready(function() {
     });
 
 
-    function searchClicked() {
+    function searchClicked() {  
         artist = $("#artist").val().trim();
         city = $("#city").val().trim();
         eventArtistNoSpace = artist.replace(" ", "+")   //changes spaces to eventful's format
@@ -111,7 +114,7 @@ $(document).ready(function() {
             eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location=" + eventCityNoSpace + "&within=60&date=today&sort_order=popularity"
         }
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords=" + eventArtistNoSpace + "&location=" + eventCityNoSpace + "&within=60&sort_order=relevence"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=60&sort_order=relevance"
         }
 
         $.ajax ({
@@ -147,7 +150,7 @@ $(document).ready(function() {
                     var eventDate = $("<td>");
                     eventDate.text(response.events.event[e].start_time)
                     
-                    event.append(eventPlaying, eventCity, eventAddress, eventDate)
+                    event.append(eventPlaying, eventAddress, eventCity, eventDate)
                     event.appendTo($("#eventsRows"));
                 }
             }
