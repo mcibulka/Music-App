@@ -17,7 +17,7 @@ $(document).ready(function() {
             var queryURL = "https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
             $.ajax({
                 url: queryURL,
-                method: "GET"
+                method: "GET"   
             }).then(function(response) {
                 var results = response.topartists.artist;
 
@@ -49,6 +49,7 @@ $(document).ready(function() {
         }
         else {
             $("#similarArtistRows").empty();
+            $("#h2-similar").text("You May Also Like:");
 
             var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
             $.ajax({
