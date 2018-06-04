@@ -150,7 +150,7 @@ $(document).ready(function() {
                     var eventDate = $("<td>");
                     eventDate.text(response.events.event[e].start_time)
                     
-                    event.append(eventPlaying, eventCity, eventAddress, eventDate)
+                    event.append(eventPlaying, eventAddress, eventCity, eventDate)
                     event.appendTo($("#eventsRows"));
                 }
             }
