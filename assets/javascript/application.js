@@ -62,6 +62,8 @@ $(document).ready(function() {
                     imageSrc.push(results[i].image[2]["#text"]);
 
                     var similarResult = $("<tr>");
+                    similarResult.attr("class", "similar");
+                    similarResult.attr("artist", results[i].name);
 
                     var similarArtistCell = $("<td>");
                     similarArtistCell.addClass("img-td");
@@ -91,7 +93,7 @@ $(document).ready(function() {
     });
 
 
-    function searchClicked() {
+    function searchClicked() {  
         artist = $("#artist").val().trim();
         city = $("#city").val().trim();
         eventArtistNoSpace = artist.replace(" ", "+")   //changes spaces to eventful's format
