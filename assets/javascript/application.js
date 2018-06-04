@@ -161,6 +161,7 @@ $(document).ready(function() {
     $("#similarArtistRows").on("click", ".similar", function() {
         var similarClicked = $(this).attr("artist");
         $("#artist").val(similarClicked);
-        searchClicked()
+        searchClicked();
+        searchLastfm();
     });
 });
