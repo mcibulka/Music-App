@@ -14,7 +14,7 @@ $(document).ready(function() {
             $("#similarArtistRows").empty();
             $("#h2-similar").text("Top Artists");
 
-            var queryURL = "https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
+            var queryURL = "https://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=" + country + "&api_key=b9323e824accc03ec64999c7f703fea1&format=json";
             $.ajax({
                 url: queryURL,
                 method: "GET"   
@@ -51,7 +51,7 @@ $(document).ready(function() {
             $("#similarArtistRows").empty();
             $("#h2-similar").text("You May Also Like:");
 
-            var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=0bb42d7e989ca9d19b690353bc075069&format=json";
+            var queryURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=" + artist + "&api_key=b9323e824accc03ec64999c7f703fea1&format=json";
             $.ajax({
                 url: queryURL,
                 method: "GET"
@@ -108,13 +108,13 @@ $(document).ready(function() {
         var eventfulURL
 
         if (city == "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords=" + eventArtistNoSpace + "&sort_order=date"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=DR4kDrd3BzFv3VG4&category=music&keywords=" + eventArtistNoSpace + "&sort_order=date"
         }
         else if ((city != "") && (eventArtistNoSpace == "")) {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&location=" + eventCityNoSpace + "&within=60&date=today&sort_order=popularity"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=DR4kDrd3BzFv3VG4&category=music&location=" + eventCityNoSpace + "&within=60&date=today&sort_order=popularity"
         }
         else if (city != "") {
-            eventfulURL = "https://api.eventful.com/json/events/search?app_key=BMHGt9rHhxJ8frMs&category=music&keywords="+eventArtistNoSpace+"&location="+eventCityNoSpace+"&within=60&sort_order=relevance"
+            eventfulURL = "https://api.eventful.com/json/events/search?app_key=DR4kDrd3BzFv3VG4&category=music&keywords=" + eventArtistNoSpace + "&location=" + eventCityNoSpace + "&within=60&sort_order=relevence"
         }
 
         $.ajax ({
